@@ -16,6 +16,7 @@
 package uk.co.magictractor.fastimage.pixels;
 
 import java.awt.Rectangle;
+import java.util.Arrays;
 
 import com.google.common.base.MoreObjects;
 
@@ -154,7 +155,10 @@ public class PixelBox {
                 && bottom == other.bottom;
     }
 
-    // todo! hashcode
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(new int[] { left, right, top, bottom });
+    }
 
     @Override
     public String toString() {

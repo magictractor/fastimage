@@ -100,4 +100,63 @@ public class PixelBoxTest {
         assertThat(box.getWidth()).isEqualTo(1);
     }
 
+    @Test
+    public void testEquals_null() {
+        PixelBox box1 = PixelBox.ofEdges(10, 30, 5, 15);
+
+        assertThat(box1.equals(null)).isFalse();
+    }
+
+    @Test
+    public void testEquals_otherType() {
+        PixelBox box1 = PixelBox.ofEdges(10, 30, 5, 15);
+
+        assertThat(box1.equals(new Object())).isFalse();
+    }
+
+    @Test
+    public void testEqualsAndHashCode_same() {
+        PixelBox box1 = PixelBox.ofEdges(10, 30, 5, 15);
+        PixelBox box2 = PixelBox.ofSize(10, 5, 21, 11);
+
+        assertThat(box1.equals(box2)).isTrue();
+        assertThat(box1.hashCode()).isEqualTo(box2.hashCode());
+    }
+
+    @Test
+    public void testEqualsAndHashCode_leftDifferent() {
+        PixelBox box1 = PixelBox.ofEdges(10, 30, 5, 15);
+        PixelBox box2 = PixelBox.ofEdges(11, 30, 5, 15);
+
+        checkNotEqual(box1, box2);
+    }
+
+    @Test
+    public void testEqualsAndHashCode_rightDifferent() {
+        PixelBox box1 = PixelBox.ofEdges(10, 30, 5, 15);
+        PixelBox box2 = PixelBox.ofEdges(10, 29, 5, 15);
+
+        checkNotEqual(box1, box2);
+    }
+
+    @Test
+    public void testEqualsAndHashCode_topDifferent() {
+        PixelBox box1 = PixelBox.ofEdges(10, 30, 5, 15);
+        PixelBox box2 = PixelBox.ofEdges(10, 30, 6, 15);
+
+        checkNotEqual(box1, box2);
+    }
+
+    @Test
+    public void testEqualsAndHashCode_bottomDifferent() {
+        PixelBox box1 = PixelBox.ofEdges(10, 30, 5, 15);
+        PixelBox box2 = PixelBox.ofEdges(10, 30, 5, 14);
+
+        checkNotEqual(box1, box2);
+    }
+
+    private void checkNotEqual(PixelBox box1, PixelBox box2) {
+        assertThat(box1.equals(box2)).isFalse();
+        assertThat(box1.hashCode()).isNotEqualTo(box2.hashCode());
+    }
 }
