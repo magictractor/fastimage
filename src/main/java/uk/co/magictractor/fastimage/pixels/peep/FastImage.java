@@ -104,7 +104,7 @@ public interface FastImage {
      * <p>
      * This is typically used to perform tasks available with BufferedImages
      * that cannot be performed on FastImages, such as saving to file using
-     * ImageIO, or more complexes graphics operations.
+     * ImageIO, or more complex graphics operations.
      * </p>
      */
     BufferedImage asBufferedImage();

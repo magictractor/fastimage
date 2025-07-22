@@ -22,31 +22,13 @@ import uk.co.magictractor.fastimage.pixels.peep.FastImage;
 /**
  *
  */
-//public static RgbTransformResult monochrome(Rgb rgb) {
-//    // TODO! rounding/helper
-//    int gray = (rgb.getRed() + rgb.getGreen() + rgb.getBlue()) / 3;
-//
-//    return RgbTransformResult.transformTo(Rgb.ofRgbInts(gray, gray, gray));
-//}
-//
-//public static RgbTransformResult lighten(Rgb rgb, float factor) {
-//    int lightRed = lighten(rgb.getRed(), factor);
-//    int lightGreen = lighten(rgb.getGreen(), factor);
-//    int lightBlue = lighten(rgb.getBlue(), factor);
-//
-//    return RgbTransformResult.transformTo(Rgb.ofRgbInts(lightRed, lightGreen, lightBlue));
-//}
-//
-//private static int lighten(int colourChannel, float factor) {
-//    return colourChannel + Math.round((255 - colourChannel) * factor);
-//}
 @FunctionalInterface
 public interface FastImageConsumer {
 
     /**
      * Implementations should prefer to use {@link FastImage#getRgb} and
-     * {@link FastImage#setRgb} with pos, ignoring x and y values. Doing so is
-     * more efficient.
+     * {@link FastImage#setRgb} with {@code pos}, ignoring {@code x} and
+     * {@code y} values. Doing so is more efficient.
      */
     void accept(FastImage image, int pos, int x, int y);
 

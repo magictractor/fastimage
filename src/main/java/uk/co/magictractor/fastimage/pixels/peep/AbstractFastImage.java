@@ -90,67 +90,13 @@ public abstract class AbstractFastImage implements FastImage {
     @Override
     public abstract void setRgb(int pos, Rgb newRgb);
 
-    //    public void transform(RgbTransform... transforms) {
-    //        int maxPos = width * height * pixelLength;
-    //
-    //        for (int pos = 0; pos < maxPos; pos += pixelLength) {
-    //            transform(pos, transforms);
-    //        }
-    //    }
-    //
-    //    private void transform(int pos, RgbTransform... transforms) {
-    //        Rgb originalRgb = getRgb(pos);
-    //        Rgb newRgb = originalRgb;
-    //        boolean preserve = false;
-    //
-    //        for (RgbTransform transform : transforms) {
-    //            RgbTransformResult transformResult = transform.transform(newRgb);
-    //
-    //            if (transformResult == null) {
-    //                // null means no changes, keep processing
-    //                // TODO! make this explicit and not-null?
-    //                continue;
-    //            }
-    //
-    //            if (transformResult.preservePixel()) {
-    //                // preserve will usually be used with an immediate stop,
-    //                // but it could be used to restore the original colour with
-    //                // further processing
-    //                newRgb = originalRgb;
-    //            }
-    //            else {
-    //                newRgb = transformResult.newRgb();
-    //            }
-    //
-    //            if (transformResult.stop()) {
-    //                break;
-    //            }
-    //        }
-    //
-    //        if (!preserve) {
-    //            setRgb(pos, newRgb);
-    //        }
-    //
-    //    }
-
     @Override
     public void forAllPixels(FastImageConsumer consumer) {
         throw new UnsupportedOperationException("not yet implemented");
     }
 
-    //
     @Override
     public void forBoxOutlinePixels(PixelBox pixelBox, int thickness, FastImageConsumer consumer) {
-        //throw new UnsupportedOperationException("not yet implemented");
-
-        // Top edge
-        //        for (int i=pixelBox.getLeft(); i<=pixelBox.getRight()-thickness; i++) {
-        //            for (int j=pixelBox.getTop(); j<thickness; j++) {
-        //
-        //            }
-        //        }
-
-        // TODO! investigate infinite loop with PixelBox{left=1338, right=1339, top=299, bottom=342} and thinkness=1
         int pos = getPos(pixelBox.getLeft(), pixelBox.getTop());
         for (int y = pixelBox.getTop(); y <= pixelBox.getBottom(); y++) {
             for (int x = pixelBox.getLeft(); x <= pixelBox.getRight(); x++) {
@@ -193,6 +139,9 @@ public abstract class AbstractFastImage implements FastImage {
     }
 
     private BufferedImage copyImage() {
+        // TODO! copy could/should be better.
+        // See https://stackoverflow.com/questions/3514158/how-do-you-clone-a-bufferedimage
+
         // Use same type so data buffer can be copied
         BufferedImage copy = new BufferedImage(width, height, imageType);
         copyPixelsTo(copy);
