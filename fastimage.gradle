@@ -16,18 +16,20 @@ java {
     targetCompatibility = JavaVersion.VERSION_21
 }
 
+// "libs.xxx" refers to libraries configured in version catalog in settings.gradle.
 dependencies {
     // Logger API.
-    implementation("org.slf4j:slf4j-api:2.0.17")
-    implementation("org.slf4j:jcl-over-slf4j:2.0.17")
+    implementation libs.slf4j.api
+    implementation libs.jcl.over.slf4j
     // Logger implementation for unit tests and main() methods.
-    runtimeOnly("ch.qos.logback:logback-classic:1.5.18")
+    runtimeOnly libs.logback.classic
 
     // MoreObjects is used for toString() implementations
     // Strings.padStart() is used when converting RGB to hex.
-    implementation("com.google.guava:guava:33.4.8-jre")
+    implementation libs.guava
     
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.13.3")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.13.3")
-    testImplementation("org.assertj:assertj-core:3.27.3")
+    testImplementation libs.junit.jupiter;
+   // testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.13.3")
+    testRuntimeOnly libs.junit.jupiter.platform;
+    testImplementation libs.assertj;
 }
