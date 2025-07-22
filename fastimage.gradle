@@ -20,7 +20,6 @@ java {
 dependencies {
     // Logger API.
     implementation libs.slf4j.api
-    implementation libs.jcl.over.slf4j
     // Logger implementation for unit tests and main() methods.
     runtimeOnly libs.logback.classic
 
@@ -29,7 +28,6 @@ dependencies {
     implementation libs.guava
     
     testImplementation libs.junit.jupiter;
-   // testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.13.3")
     testRuntimeOnly libs.junit.jupiter.platform;
     testImplementation libs.assertj;
 }
