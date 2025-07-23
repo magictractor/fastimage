@@ -15,7 +15,10 @@
  */
 package uk.co.magictractor.fastimage.rgb;
 
-import org.assertj.core.api.SoftAssertions;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.awt.Color;
+
 import org.junit.jupiter.api.Test;
 
 /**
@@ -23,8 +26,16 @@ import org.junit.jupiter.api.Test;
  */
 public class RgbTest {
 
-	// Used in Unity images (DXT1 and DXT5) but not in BuffereredImage,
-	// so no FastImage implementation. Other RGB types tested via FastImage tests.
+    @Test
+    public void testOfAwtColor() {
+        Color awtColor = new Color(255, 100, 50, 128);
+        Rgb actualRgb = Rgb.ofAwtColor(awtColor);
+        Rgb expectedRgb = Rgb.ofRgbaInts(255, 100, 50, 128);
+        assertThat(actualRgb).isEqualTo(expectedRgb);
+    }
+
+    // Used in Unity images (DXT1 and DXT5) but not in BuffereredImage,
+    // so no FastImage implementation. Other RGB types tested via FastImage tests.
     @Test
     public void testOf565Short() {
         check565Short(0xf800, 255, 0, 0);
@@ -33,13 +44,9 @@ public class RgbTest {
     }
 
     private void check565Short(int shortValue, int expectedRed, int expectedGreen, int expectedBlue) {
-        Rgb rgb = Rgb.ofRgb565Short((short) shortValue);
-        SoftAssertions all = new SoftAssertions();
-        all.assertThat(rgb.getRed()).as("red").isEqualTo(expectedRed);
-        all.assertThat(rgb.getGreen()).as("green").isEqualTo(expectedGreen);
-        all.assertThat(rgb.getBlue()).as("blue").isEqualTo(expectedBlue);
-        all.assertThat(rgb.getAlpha()).as("alpha").isEqualTo(255);
-        all.assertAll();
+        Rgb actualRgb = Rgb.ofRgb565Short((short) shortValue);
+        Rgb expectedRgb = Rgb.ofRgbInts(expectedRed, expectedGreen, expectedBlue);
+        assertThat(actualRgb).isEqualTo(expectedRgb);
     }
 
 }
